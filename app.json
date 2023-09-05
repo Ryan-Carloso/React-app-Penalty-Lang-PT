@@ -1,11 +1,17 @@
 {
   "expo": {
-    "name": "Penalty-app",
-    "slug": "Penalty-app",
+    "name": "Penalidades Win 7",
+    "slug": "Penalidades-Win-7",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "permissions": [
+      "INTERNET",
+      "VIBRATE",
+      "RECEIVE_BOOT_COMPLETED",
+      "NOTIFICATIONS"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,10 +27,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.Penalidades.PenalidadesPT",
+      "versionCode": 1
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "extra": {
+      "eas": {
+        "projectId": "256ca0bf-b12d-43b1-8f28-f29952973aa1"
+      }
     }
   }
 }
