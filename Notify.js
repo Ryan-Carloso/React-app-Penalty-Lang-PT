@@ -11,7 +11,7 @@ function Notify() {
     'Registre-se e comece a jogar!',
     'Ganhe dinheiro com penalidades no telemóvel!',
   ];
-  const NameText = ['Francisco', 'Luís', 'Pedro', 'Miguel', 'Tiago', 'João', 'Henrique', 'André', 'Paulo', 'Carlos', 'Manuel'];
+  const NameText = ["luan", "Ryan", "Matheus", "Fernando", "joão", "Gabriel", "João", "luis", "Enzo", "Pedro", "Tiago", "André", "Paulo"];
 
   useEffect(() => {
     async function registerForPushNotificationsAsync() {
@@ -50,7 +50,7 @@ function Notify() {
         const tempoAtéNotificação = horaAlvo.getTime() - agora.getTime();
 
         setTimeout(() => {
-          enviarNotificacao("Ei, não se esqueça!", "Os ganhos estão esperando por você! Clique aqui e inscreva-se agora para obter 100% de bônus no primeiro depósito!");
+          enviarNotificacao("Ei, não se esqueça!", "Os ganhos estão esperando por você! Clique aqui e inscreva-se agora para obter até 125% de bônus no primeiro depósito!");
         }, tempoAtéNotificação);
 
         // Agende um loop de notificações com o intervalo especificado
@@ -105,13 +105,13 @@ function Notify() {
   function getRandomMessage1() {
     const numeroAleatorio = gerarNumeroAleatorio();
     const nome = NameText[Math.floor(Math.random() * NameText.length)];
-    return nome + " ganhou " + numeroAleatorio + " € agora mesmo ao jogar este jogo! Faça um depósito e obtenha um bônus de 100%!";
+    return nome + " ganhou R$ " + numeroAleatorio + " agora mesmo ao jogar este jogo! Faça um depósito e obtenha um bônus de 125%!";
   }
 
   function getRandomMessage2() {
     const numeroAleatorio1 = gerarNumeroAleatorio1();
     const eurosAleatorios2x = gerarEuros2x();
-    return "Um total de " + numeroAleatorio1 + " jogadores ganhou " + eurosAleatorios2x + " € jogando este jogo! Clique aqui e comece agora!";
+    return "Um total de " + numeroAleatorio1 + " jogadores acabaram de ganhar R$ " + eurosAleatorios2x + " jogando este jogo! Clique aqui e comece agora!";
   }
 
   function getRandomMessage3() {
@@ -122,7 +122,7 @@ function Notify() {
   function getRandomMessage4() {
     const nome = NameText[Math.floor(Math.random() * NameText.length)];
     const numeroAleatorio = gerarNumeroAleatorio();
-    return "Registre-se hoje, clique aqui para começar a ganhar jogando com este aplicativo! Obtenha um bônus no seu primeiro depósito!, assim como " + nome + " ganhou " + numeroAleatorio + " € hoje!";
+    return "Registre-se hoje, clique aqui para começar a ganhar jogando com este aplicativo! Obtenha um bônus no seu primeiro depósito!, assim como " + nome + " ganhou R$ " + numeroAleatorio + " hoje!";
   }
 
   function gerarNumeroAleatorio() {

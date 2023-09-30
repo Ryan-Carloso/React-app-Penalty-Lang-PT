@@ -1,24 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Linking } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const Popup = ({ visible, onClose }) => {
+  const [shouldDisplayPopup, setShouldDisplayPopup] = useState(false);
+
   useEffect(() => {
-    if (visible) {
+    // Verifique o valor do contador no AsyncStorage
+    AsyncStorage.getItem('popupDisplayCount')
+      .then((count) => {
+        if (!count) {
+          // Se o contador não existir, crie-o com valor 0
+          AsyncStorage.setItem('popupDisplayCount', '0');
+        } else {
+          // Se o contador existir, verifique se o usuário já abriu o aplicativo 3 vezes
+          const displayCount = parseInt(count);
+          if (displayCount < 30000) {
+            setShouldDisplayPopup(true);
+            AsyncStorage.setItem('popupDisplayCount', (displayCount + 1).toString());
+          }
+        }
+      })
+      .catch((error) => {
+        console.error('Error reading AsyncStorage:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (visible && shouldDisplayPopup) {
       const timeout = setTimeout(() => {
-        onClose();
-      }, 15000); // 20,000 milliseconds = 20 seconds
+        handleClosePopup();
+      }, 20000); // 20,000 milliseconds = 20 segundos
 
       return () => clearTimeout(timeout);
     }
-  }, [visible]);
+  }, [visible, shouldDisplayPopup]);
 
   const handleClosePopup = () => {
+    setShouldDisplayPopup(false);
     onClose();
   };
 
   const handleOpenLink = () => {
-    const url = 'https://afonsocosta.shop/youtube-popup-pt';
+    const url = 'https://afonsocosta.shop/penalty/wpp/como-jogar';
     Linking.canOpenURL(url)
       .then((supported) => {
         if (supported) {
@@ -32,7 +58,7 @@ const Popup = ({ visible, onClose }) => {
       });
   };
 
-  if (!visible) {
+  if (!visible || !shouldDisplayPopup) {
     return null;
   }
 
@@ -45,7 +71,7 @@ const Popup = ({ visible, onClose }) => {
     >
       <View style={styles.modalContainer}>
         <TouchableOpacity onPress={handleClosePopup} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>X</Text>
+          <Text style={styles.closeButtonText}>Já fiz o Deposito!</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleOpenLink}>
           <Image source={require('./assets/POP-UP.png')} style={styles.image} />
@@ -63,20 +89,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   image: {
-    width: 350,
-    height: 350,
+    width: 600,
+    height: 500,
     resizeMode: 'contain',
   },
   closeButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
+    bottom: 20,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 20,
   },
   closeButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
